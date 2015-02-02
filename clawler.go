@@ -8,6 +8,7 @@ import (
 	"os"
 	"flag"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/cheggaaa/pb"
 )
 
 func GetPage(base string) []*url.URL {
@@ -23,8 +24,10 @@ func GetPage(base string) []*url.URL {
 }
 
 func GetImage(urls []*url.URL) {
+		bar := pb.StartNew(len(urls))
 	for i, url := range urls {
 		urrl := url.String()
+		bar.Increment()
 		response, err := http.Get(urrl)
 		if err != nil {
 			panic(err)
