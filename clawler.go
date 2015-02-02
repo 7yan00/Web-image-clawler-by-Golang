@@ -43,9 +43,9 @@ func GetImage(urls []*url.URL) {
 
 func main() {
 	flag.Parse()
-	fmt.Println(It works!)
+	fmt.Println("It works!")
 	base := flag.Arg(0)
 	urls := (GetPage(base))
 	GetImage(urls)
-	fmt.Println(fin! You ought to get some picture!)
+	fmt.Println("fin! You ought to get some picture!")
 }

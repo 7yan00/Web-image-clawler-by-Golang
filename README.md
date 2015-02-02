@@ -13,6 +13,6 @@ go run main.go http://blog.golang.org/
 
 results:
 
-you will got same .img Picture! Yeah!
+you're happy! Yeah!
 
-Enjoy Web-Clawl life!!!!!!!!!!
+yeah!!!!!!
