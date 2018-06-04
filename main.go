@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -15,16 +16,22 @@ import (
 
 var stock = []string{}
 var base = " "
-var i int = 0
+var nos int = 0 //number of sheets
+var i int = 1
 var wg = new(sync.WaitGroup)
 
 func main() {
 	flag.Parse()
 	fmt.Println("It works!")
 	base = flag.Arg(0)
+	nos, _ = strconv.Atoi(flag.Arg(1))
+	println(nos)
 	doc, _ := goquery.NewDocument(base)
 	results := makeUrl(doc)
 	for len(results) > 0 {
+		if i > nos {
+			break
+		}
 		results = GetUrl(results)
 	}
 	wg.Wait()
@@ -74,6 +81,7 @@ func makeUrl(doc *goquery.Document) []*url.URL {
 }
 
 func GetImage(doc *goquery.Document) {
+
 	var result []*url.URL
 	doc.Find("img").Each(func(_ int, s *goquery.Selection) {
 		target, _ := s.Attr("src")
@@ -82,6 +90,9 @@ func GetImage(doc *goquery.Document) {
 		result = append(result, base.ResolveReference(targets))
 	})
 	for _, imageUrl := range result {
+		if i > nos {
+			break
+		}
 		imageUrl_String := imageUrl.String()
 		if containsInStock(imageUrl_String) {
 			continue
